@@ -1,0 +1,24 @@
+#include <style.h>
+void GAMEOVER()
+{
+	racetrack_style; //racing track
+ bar(100,0,520,maxy);
+
+	settextstyle(3,HORIZ_DIR,4);
+	setcolor(WHITE);
+	outtextxy(midx-80,midy-30,"GAME OVER");
+	nosound();
+    sound(450);
+   delay(500);
+   sound(260);
+   delay(500);
+   sound(550);
+    delay(500);
+	sound(200);
+   delay(500);
+   sound(200);
+   delay(500);
+     nosound();
+	delay (700);
+   exit(0);
+}

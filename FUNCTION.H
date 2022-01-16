@@ -1,0 +1,353 @@
+#include<stdio.h>
+#include <style.h>
+#include<stdlib.h>
+#include<GAMEOVER.h>
+#include<time.h>
+
+void graphics_initialize()
+{
+/* request auto detection */
+int gdriver = DETECT, gmode;
+/* initialize graphics and local variables */
+initgraph(&gdriver, &gmode, "c:\\bgi");
+}
+
+void soundcar()
+{
+    sound(60);
+    sound(80);
+    sound(100);
+
+
+}
+void collide_sound()
+{
+	sound(1500);
+                delay(210);
+                nosound();
+                sound(350);
+                delay(150);
+                nosound();
+                sound(1000);
+                delay(300);
+                nosound();
+	 nosound();
+}
+
+void display_level(int level)
+{
+	char string2[25];
+	itoa(level,string2,10);
+	setcolor(WHITE);
+	outtextxy(600,30,string2);
+
+}
+void hide_displaylevel( )
+{
+	setfillstyle(1,GREEN);
+bar(600,30,620,70);
+}
+int display_score(int score)
+{
+	char string[25];
+	itoa(score,string,10);
+	setcolor(WHITE);
+	outtextxy(40,50,string);
+
+return score;
+}
+
+void hide_display_score()
+{
+	setfillstyle(1,GREEN);
+bar(40,50,70,70);
+}
+
+
+void racing_track()
+{
+ racetrack_style; //racing track
+ bar(100,0,520,maxy);
+}
+void green_court()
+{ court_style; //green court
+  bar(0,0, maxx,maxy);
+}
+void divider1()
+{
+bar(220,30,250,50);
+bar(220,30+65,250,50+65);
+bar(220,30+130,250,50+130);
+bar(220,30+195,250,50+195);
+bar(220,30+260,250,50+260);
+bar(220,30+325,250,50+325);
+bar(220,30+390,250,50+390);
+bar(220,30+455,250,50+455);
+}
+void divider2()
+{
+bar(220,10,250,30);
+bar(220,10+65,250,30+65);
+bar(220,10+130,250,30+130);
+bar(220,10+195,250,30+195);
+bar(220,10+260,250,30+260);
+bar(220,10+325,250,30+325);
+bar(220,10+390,250,30+390);
+bar(220,10+455,250,30+455);
+}
+void divider3()
+{
+bar(370,30,400,50);
+bar(370,30+65,400,50+65);
+bar(370,30+130,400,50+130);
+bar(370,30+195,400,50+195);
+bar(370,30+260,400,50+260);
+bar(370,30+325,400,50+325);
+bar(370,30+390,400,50+390);
+bar(370,30+455,400,50+455);
+}
+void divider4()
+{
+bar(370,10,400,30);
+bar(370,10+65,400,30+65);
+bar(370,10+130,400,30+130);
+bar(370,10+195,400,30+195);
+bar(370,10+260,400,30+260);
+bar(370,10+325,400,30+325);
+bar(370,10+390,400,30+390);
+bar(370,10+455,400,30+455);
+}
+void drawdivider1()
+{
+		divider_show;
+		divider1();
+		divider3();
+}
+void hidedivider1()
+{
+		racetrack_style;  //to hide the divider
+		divider1();
+		divider3();
+}
+void drawdivider2()
+{
+		divider_show;
+		divider2();
+		divider4();
+}
+void hidedivider2()
+{
+		racetrack_style;  //to hide the divider
+		divider2();
+		divider4();
+}
+void enemycar1(int r)
+{
+	setfillstyle(1,9);
+	bar(140,-25+r,170,-5+r);
+	setfillstyle(1,11);
+	bar(150,-15+r,160,-10+r);
+
+}
+void enemycar2(int r)
+{setfillstyle(1,6);
+	bar(300,-25+r,330,-5+r);
+	setfillstyle(1,12);
+	bar(310,-15+r,320,-10+r);
+
+
+}
+
+void enemycar3(int r)
+{setfillstyle(1,5);
+	bar(450,-25+r,480,-5+r);
+	setfillstyle(1,2);
+	bar(460,-15+r,470,-10+r);
+
+}
+void erase_enemycar1(int r)
+{
+	setfillstyle(1,8);
+	bar(140,-25+r,170,-5+r);
+
+}
+void erase_enemycar2(int r)
+{setfillstyle(1,8);
+	bar(300,-25+r,330,-5+r);
+
+	}
+
+void erase_enemycar3(int r)
+{
+	setfillstyle(1,8);
+	bar(450,-25+r,480,-5+r);
+}
+
+int collision(int x,int r,int lane,int lane2)
+{
+	int car[3],enemycar[2];
+	 car[1]=maxy-100;
+	enemycar[1]=-25+r;
+	enemycar[2]=-5+r;
+	if((lane==x||lane2==x )&& (car[1] < enemycar[1] || car[1] < enemycar[2]) )
+	{  collide_sound();
+       delay(200);
+	   GAMEOVER();
+      return 1;
+	}
+return 0;
+}
+void drawcar1()
+{
+   setfillstyle(1,4);
+   bar(midx-200, maxy-100,midx-130,maxy-10);
+   setfillstyle(1,3);
+   bar(midx-190, maxy-70, midx-140,maxy-20);
+   setfillstyle(1,7);
+}
+void drawcar2()
+{
+   setfillstyle(1,4);
+   bar(midx-40, maxy-100,midx+30,maxy-10);
+   setfillstyle(1,3);
+   bar(midx-30, maxy-70, midx+20,maxy-20);
+   setfillstyle(1,7);
+}
+void drawcar3()
+{
+   setfillstyle(1,4);
+   bar(midx+110, maxy-100,midx+180,maxy-10);
+   setfillstyle(1,3);
+   bar(midx+120, maxy-70, midx+170,maxy-20);
+   setfillstyle(1,7);
+}
+
+
+void erasecar1()
+{
+	setfillstyle(1,8);
+    bar(midx-200, maxy-100,midx-130,maxy-10);
+    setfillstyle(1,3);
+
+}
+
+void erasecar2()
+{
+   setfillstyle(1,8);
+   bar(midx-40, maxy-100,midx+30,maxy-10);
+
+}
+void erasecar3()
+{
+   setfillstyle(1,8);
+   bar(midx+110, maxy-100,midx+180,maxy-10);
+
+}
+
+int check(int x)
+{
+	if (kbhit())
+	{
+	int a=getch();
+		if(a==27)
+		{
+			nosound();
+		exit(0);
+		}
+		
+		if(a=='M')
+			{if (x==2)
+				{
+				sound(1200);
+                delay(20);
+				nosound();
+				soundcar();
+
+				drawcar3();
+				erasecar2();
+				x=3;
+				}
+			if(x==1)
+				{sound(1200);
+                 delay(20);
+				 nosound();
+				 soundcar();
+
+					drawcar2();
+					erasecar1();
+					x=2;
+				}
+			}
+		if(a=='K')
+		{
+			if(x==2)
+			{sound(1200);
+                 delay(20);
+				 nosound();
+				 soundcar();
+
+				 drawcar1();
+				 
+				 erasecar2();
+				x=1;
+			}
+			if(x==3)
+			{sound(1200);
+                 delay(20);
+				 nosound();
+				 soundcar();
+			drawcar2();
+			erasecar3();
+			x=2;
+
+			}
+		}
+
+	}
+return x;
+}
+
+int random_carlane(int lane)
+{
+   randomize();
+   lane=random(100)+1;
+	if(lane%2==0)
+		lane = 2;
+	else
+	{if(lane%3)
+		lane =3;
+	else
+		lane=1;
+    }
+   return lane;
+}
+
+int random_carlane2(int lane2,int lane)
+{
+	randomize();
+	lane2=random(70)+1;
+	if(lane2%2==0)
+		lane2=1;
+	else
+	{if(lane2==lane)
+			lane2=1;
+		else
+			lane2=3;
+	}
+   return lane2;
+}
+void drawrec1(int col1)
+{
+fillcol1;
+rectangle(left,top,right,bottom);
+}
+void drawrec2(int col2)
+{
+fillcol2;
+rectangle(left,top+30,right,bottom+30);
+}
+void drawrec3(int col3)
+{
+fillcol3;
+rectangle(left,top+60,right,bottom+60);
+}

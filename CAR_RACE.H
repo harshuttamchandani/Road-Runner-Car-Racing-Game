@@ -1,0 +1,83 @@
+void intro()
+{
+int r=0,ch=0,lane,lane2,level=1;
+int x=2,score=0,tt=260;
+int collide=0;
+green_court();//draws green court
+racing_track();//draws racing track
+setcolor(WHITE);
+outtextxy(40,30,"SCORE:");
+outtextxy(10,100,"PRESS ESC");
+outtextxy(10,110,"TO QUIT");
+outtextxy(550,30,"LEVEL:");
+do
+{
+
+hide_displaylevel();
+display_level(level);
+
+hide_display_score();
+	  display_score(score);
+if(ch==0)
+    {
+		drawcar2();
+    }
+     x=check(x);
+	 lane=random_carlane(lane);
+	 lane2=random_carlane2(lane2,lane);
+soundcar();
+	 for(loop1)
+{
+      drawdivider1();
+	  delay(tt);
+
+	  x= check(x);
+	  hidedivider1();
+	  drawdivider2();
+	  x=check(x);
+	  if(lane==1||lane2==1)
+	  enemycar1(r);
+	  if(lane==2||lane2==2)
+	  enemycar2(r);
+	  if(lane==3||lane2==3)
+	  enemycar3(r);
+	  delay(tt);
+	  score+=10;
+	  hide_display_score();
+	  display_score(score);
+	  x=check(x);
+
+
+	  if(r<500)
+	   {
+				if(lane==1||lane2==1)
+				erase_enemycar1(r);
+				if(lane==2||lane2==2)
+				erase_enemycar2(r);
+				if(lane==3||lane2==3)
+				erase_enemycar3(r);
+				collide=collision(x,r,lane,lane2);
+				x=check(x);
+
+		}
+if(score%140==0 && tt>20)
+{tt-=15;
+  x=check(x);
+level+=1;
+hide_displaylevel();
+display_level(level);
+}
+x=check(x);
+	 hidedivider2();
+	  x=check(x);
+
+
+
+}
+ch=1;
+
+}
+while(!collide);
+
+}
+
